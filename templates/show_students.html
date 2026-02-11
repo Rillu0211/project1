@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Students | Admin</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ===== Top Navbar ===== */
+        .top-navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:60px;
+            background:#0a5c36;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:22px;
+            font-weight:bold;
+            z-index:1000;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar{
+            position:fixed;
+            top:60px;
+            left:0;
+            width:220px;
+            height:calc(100vh - 60px);
+            background:#0a5c36;
+            padding-top:20px;
+        }
+
+        .sidebar a{
+            display:block;
+            padding:12px 25px;
+            color:white;
+            text-decoration:none;
+            font-size:14px;
+        }
+
+        .sidebar a:hover{
+            background:#087a4c;
+        }
+
+        /* ===== Main Content ===== */
+        .main-content{
+            margin-left:220px;
+            margin-top:60px;
+            padding:30px;
+            min-height:calc(100vh - 60px);
+            background:#f4f6f5;
+        }
+
+        h2{
+            color:#0a5c36;
+            margin-bottom:20px;
+        }
+
+        /* ===== Table ===== */
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            box-shadow:0 0 10px rgba(0,0,0,0.15);
+        }
+
+        th, td{
+            padding:12px;
+            text-align:center;
+            border-bottom:1px solid #ddd;
+            font-size:14px;
+        }
+
+        th{
+            background:#0a5c36;
+            color:white;
+        }
+
+        tr:hover{
+            background:#f1f1f1;
+        }
+
+        .action-btn{
+            padding:6px 12px;
+            border-radius:4px;
+            text-decoration:none;
+            color:white;
+            font-size:13px;
+        }
+
+        .edit-btn{
+            background:#0a5c36;
+        }
+
+        .delete-btn{
+            background:#c0392b;
+        }
+
+        .edit-btn:hover{
+            background:#087a4c;
+        }
+
+        .delete-btn:hover{
+            background:#a93226;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Top Navbar ===== -->
+<div class="top-navbar">
+    Cambridge University – Admin
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+    <a href="{% url 'addcourse1' %}">Add Course</a>
+    <a href="{% url 'add_student' %}">Add Students</a>
+    <a href="{% url 'view_teachers' %}">Show Teachers</a>
+    <a href="{% url 'showstudents' %}">Show Students</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="main-content">
+
+    <h2>All Students</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Address</th>
+                <th>Age</th>
+                <th>Joining Date</th>
+                <th>Course</th>
+                <th>Course Fee</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in student %}
+            <tr>
+                <td>{{ s.full_name }}</td>
+                <td>{{ s.address }}</td>
+                <td>{{ s.age }}</td>
+                <td>{{ s.joining_date }}</td>
+                <td>{{ s.course.course_name }}</td>
+                <td>{{ s.course.fee }}</td>
+                <td>
+                    <a href="{% url 'editstudents' s.id %}" class="action-btn edit-btn">Edit</a>
+                    <a href="{% url 'delete' s.id %}" class="action-btn delete-btn">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No students found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

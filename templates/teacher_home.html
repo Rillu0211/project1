@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers | College Management System</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ===== Top Navbar ===== */
+        .top-navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:60px;
+            background:#0a5c36;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:22px;
+            font-weight:bold;
+            z-index:1000;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar{
+            position:fixed;
+            top:60px;              /* below navbar */
+            left:0;
+            width:220px;
+            height:calc(100vh - 60px);
+            background:#0a5c36;
+            padding-top:20px;
+        }
+
+        .sidebar a{
+            display:block;
+            padding:12px 25px;
+            color:white;
+            text-decoration:none;
+            font-size:14px;
+        }
+
+        .sidebar a:hover{
+            background:#087a4c;
+        }
+
+        /* ===== Main Content ===== */
+        .main-content{
+            margin-left:220px;
+            margin-top:60px;
+            padding:30px;
+            min-height:calc(100vh - 60px);
+            background:#f4f6f5;
+        }
+
+        .header h2{
+            color:#0a5c36;
+            margin-bottom:5px;
+        }
+
+        .header p{
+            color:#555;
+            font-size:14px;
+            margin-bottom:25px;
+        }
+
+        /* ===== Image Section ===== */
+        .dashboard-image{
+            width:100%;
+            max-width:900px;
+            margin:0 auto 30px;
+        }
+
+        .dashboard-image img{
+            width:75%;
+            height:350px;
+            object-fit:cover;
+            border-radius:12px;
+            box-shadow:0 0 15px rgba(0,0,0,0.2);
+        }
+
+        /* ===== Dashboard Cards ===== */
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+            gap:20px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.15);
+            text-align:center;
+        }
+
+        .card h3{
+            color:#0a5c36;
+            margin-bottom:10px;
+        }
+
+        .card p{
+            font-size:14px;
+            color:#555;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Top Navbar ===== -->
+<div class="top-navbar">
+    Cambridge University - Teacher
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+    <a href="{% url 'teacherhome' %}">Dashboard</a>
+    <a href="{% url 'profile' %}">View Profile</a>
+    <a href="{% url 'edit_teacher' %}">Edit Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <div class="header">
+        <h2>Welcome {{ request.user.first_name }} {{ request.user.last_name }} </h2>
+
+        <p>Manage your profile and view your details</p>
+    </div>
+
+</body>
+</html>

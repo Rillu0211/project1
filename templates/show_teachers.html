@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Teachers | Admin</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ===== Top Navbar ===== */
+        .top-navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:60px;
+            background:#0a5c36;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:22px;
+            font-weight:bold;
+            z-index:1000;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar{
+            position:fixed;
+            top:60px;
+            left:0;
+            width:220px;
+            height:calc(100vh - 60px);
+            background:#0a5c36;
+            padding-top:20px;
+        }
+
+        .sidebar a{
+            display:block;
+            padding:12px 25px;
+            color:white;
+            text-decoration:none;
+            font-size:14px;
+        }
+
+        .sidebar a:hover{
+            background:#087a4c;
+        }
+
+        /* ===== Main Content ===== */
+        .main-content{
+            margin-left:220px;
+            margin-top:60px;
+            padding:30px;
+            min-height:calc(100vh - 60px);
+            background:#f4f6f5;
+        }
+
+        /* ===== Table ===== */
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            box-shadow:0 0 10px rgba(0,0,0,0.15);
+        }
+
+        th, td{
+            padding:12px;
+            text-align:center;
+            border-bottom:1px solid #ddd;
+        }
+
+        th{
+            background:#0a5c36;
+            color:white;
+        }
+
+        img{
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            object-fit:cover;
+        }
+        .delete-btn{
+            background:#c0392b;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- ===== Top Navbar ===== -->
+<div class="top-navbar">
+    Cambridge University – Admin
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+    <a href="{% url 'addcourse1' %}">Add Course</a>
+    <a href="{% url 'add_student' %}">Add Students</a>
+    <a href="{% url 'view_teachers' %}">Show Teachers</a>
+    <a href="{% url 'showstudents' %}">Show Students</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="main-content">
+
+    <h2 style="color:#0a5c36; margin-bottom:20px;">All Teachers</h2>
+
+    <table>
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Contact</th>
+        </tr>
+
+        {% for t in teachers %}
+        <tr>
+            <td>
+                {% if t.image %}
+                    <img src="{{ t.image.url }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/50">
+                {% endif %}
+            </td>
+            <td>{{ t.user.first_name }} {{ t.user.last_name }}</td>
+            <td>{{ t.user.username }}</td>
+            <td>{{ t.user.email }}</td>
+            <td>{{ t.age }}</td>
+            <td>{{ t.address }}</td>
+            <td>{{ t.contact_number }}</td>
+            <td>
+                    
+                <a href="{% url 'delete1' t.id %}" class="action-btn delete-btn">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No teachers found</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Profile | College Management System</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f6f5;
+        }
+
+        /* ===== Top Navbar ===== */
+        .top-navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:60px;
+            background:#0a5c36;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:22px;
+            font-weight:bold;
+            z-index:1000;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar{
+            position:fixed;
+            top:60px;
+            left:0;
+            width:220px;
+            height:calc(100vh - 60px);
+            background:#0a5c36;
+            padding-top:20px;
+        }
+
+        .sidebar a{
+            display:block;
+            padding:12px 25px;
+            color:white;
+            text-decoration:none;
+            font-size:14px;
+        }
+
+        .sidebar a:hover{
+            background:#087a4c;
+        }
+
+        /* ===== Main Content ===== */
+        .main-content{
+            margin-left:220px;
+            margin-top:60px;
+            min-height:calc(100vh - 60px);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        /* ===== Profile Card ===== */
+        .profile-card{
+            background:white;
+            width:360px;
+            border-radius:15px;
+            box-shadow:0 0 15px rgba(0,0,0,0.2);
+            text-align:center;
+            padding:25px;
+        }
+
+        .profile-card img{
+            width:120px;
+            height:120px;
+            border-radius:50%;
+            object-fit:cover;
+            border:4px solid #0a5c36;
+            margin-bottom:15px;
+        }
+
+        .profile-card h2{
+            margin:5px 0;
+            color:#0a5c36;
+        }
+
+        .profile-card p{
+            font-size:14px;
+            color:#555;
+            margin:6px 0;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:15px;
+            padding:10px 20px;
+            background:#0a5c36;
+            color:white;
+            text-decoration:none;
+            border-radius:6px;
+            font-size:14px;
+        }
+
+        .btn:hover{
+            background:#087a4c;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Top Navbar ===== -->
+<div class="top-navbar">
+    Cambridge University - Teacher
+</div>
+
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+    <a href="{% url 'teacherhome' %}">Dashboard</a>
+    <a href="{% url 'profile' %}">View Profile</a>
+    <a href="{% url 'edit_teacher' %}">Edit Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="main-content">
+    <div class="profile-card">
+
+        {% if teacher.image %}
+            <img src="{{ teacher.image.url }}">
+        {% else %}
+            <img src="https://via.placeholder.com/120">
+        {% endif %}
+
+        <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+        <p><strong>Username:</strong> {{ request.user.username }}</p>
+        <p><strong>Email:</strong> {{ request.user.email }}</p>
+        <p><strong>Address:</strong> {{ teacher.address }}</p>
+        <p><strong>Age:</strong> {{ teacher.age }}</p>
+        <p><strong>Contact:</strong> {{ teacher.contact_number }}</p>
+        <p><strong>Course:</strong> {{ teacher.course.course_name }}</p>
+
+
+        <a href="{% url 'edit_teacher' %}" class="btn">Edit Profile</a>
+    </div>
+</div>
+
+</body>
+</html>
